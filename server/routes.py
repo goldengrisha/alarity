@@ -21,11 +21,11 @@ def get_text(id: int):
 
 
 @app.route('/text', methods=['GET'])
-def get_all_texts(id: int):
+def get_all_texts():
 
     return jsonify(json_result(
         True,
-        [text.serialized for text in Text.query.limit.all()]))
+        [text.serialized for text in Text.query.all()]))
 
 
 @app.route('/text/lines/<int:id>', methods=['GET'])
@@ -52,7 +52,7 @@ def save_text(name: str):
     db.session.add(text)
     db.session.commit()
 
-    return jsonify(json_result(True, None))
+    return jsonify(json_result(True, text.serialized))
 
 
 @app.route('/text/similar/<int:id>', methods=['GET'])

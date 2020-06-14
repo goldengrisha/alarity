@@ -1,23 +1,49 @@
 <template>
   <div id="app">
-    <div class="container" style="width:600px">
-      <div style="margin: 20px">
-        <h3>bezkoder.com</h3>
-        <h4>Vue.js upload Files</h4>
+    <modal name="load-bar" height="100%" width="100%">
+      <div class="text-center">
+        <div class="spinner-grow text-primary" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-secondary" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-success" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-danger" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-warning" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-info" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-light" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-dark" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
       </div>
-
-      <upload-files></upload-files>
+    </modal>
+    <div class="container-fluid">
+      <h1>Text similarity</h1>
+      <router-view></router-view>
     </div>
   </div>
 </template>
 
 <script>
-import UploadFiles from "./components/UploadFiles";
-
 export default {
   name: "App",
-  components: {
-    UploadFiles
-  }
+  components: {},
+  methods: {}
 };
 </script>
+<style scoped>
+h1 {
+  text-align: center;
+}
+</style>

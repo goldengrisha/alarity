@@ -1,3 +1,4 @@
+import nltk
 from nltk import sent_tokenize
 
 
