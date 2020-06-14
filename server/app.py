@@ -1,3 +1,4 @@
+import nltk
 from os import environ
 from flask import Flask
 from flask_cors import CORS
@@ -5,11 +6,13 @@ from flask_sqlalchemy import SQLAlchemy
 from config import SQLALCHEMY_DATABASE_URI
 
 
-db = SQLAlchemy()
+# Download punkt for proper sentence separating.
+nltk.download('punkt')
+
 app = Flask(__name__)
+db = SQLAlchemy(app)
 app.config.from_object(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = SQLALCHEMY_DATABASE_URI
-db.init_app(app)
 # enable CORS
 CORS(app, resources={r'/*': {'origins': '*'}})
 
