@@ -5,8 +5,8 @@
       <div class="col-4">
         <div class="card">
           <div class="card-header">Similar lines</div>
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item" v-for="(similarText, index) in similar_texts" :key="index">
+          <ul class="'list-group list-group-flush'">
+            <li class="list-group-item" v-for="(similarText, index) in similarTexts" :key="index">
               <div class="card">
                 <div class="card-body">
                   <h5 class="card-title">{{ similarText.text_name }}</h5>
@@ -21,9 +21,30 @@
         <div class="card">
           <div class="card-header">Text content</div>
           <div class="card-body">
-            <p v-for="(textline, index) in textLines" :key="index">
-              <a :href="textline.id" @click.prevent="compare(textline.id)">{{ textline.line }}</a>
-            </p>
+            <paginate
+              name="paginatedTextLines"
+              :list="textLines"
+              :per="50"
+              :class="'list-group list-group-flush'"
+            >
+              <p v-for="(textline, index) in paginated('paginatedTextLines')" :key="index">
+                <a :href="textline.id" @click.prevent="compare(textline.id)">{{ textline.line }}</a>
+              </p>
+            </paginate>
+            <div class="row">
+              <div class="col-4"></div>
+              <div class="col-4">
+                <paginate-links
+                  for="paginatedTextLines"
+                  :async="true"
+                  :show-step-links="true"
+                  :step-links="{ next: 'Next', prev: 'Previous' }"
+                  :classes="{ 'ul': 'pagination', 'li': 'page-item', 'a': 'page-link'}"
+                  :hide-single-page="true"
+                ></paginate-links>
+              </div>
+              <div class="col-4"></div>
+            </div>
           </div>
         </div>
       </div>
@@ -41,8 +62,9 @@ export default {
   data() {
     return {
       textLines: [],
-      similar_texts: [],
-      textId: this.$route.params.textId
+      similarTexts: [],
+      textId: this.$route.params.textId,
+      paginate: ["paginatedTextLines"]
     };
   },
   computed: {},
@@ -50,9 +72,9 @@ export default {
     async compare(lineId) {
       this.$modal.show("load-bar");
       try {
-        let similar_text_response = await ApiService.getSimilarLines(lineId);
-        let similar_text_message = this.handleResponse(similar_text_response);
-        if (similar_text_response) this.similar_texts = similar_text_message;
+        let similarTextResponse = await ApiService.getSimilarLines(lineId);
+        let similarTextMessage = this.handleResponse(similarTextResponse);
+        if (similarTextResponse) this.similarTexts = similarTextMessage;
       } catch (error) {
         alert(error);
       } finally {

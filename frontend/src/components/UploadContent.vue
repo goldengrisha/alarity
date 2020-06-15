@@ -3,11 +3,34 @@
     <div class="col-4">
       <div class="card">
         <div class="card-header">Texts</div>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item" v-for="(text, index) in texts" :key="index">
+        <paginate
+          name="paginatedTexts"
+          :list="texts"
+          :per="20"
+          :class="'list-group list-group-flush'"
+        >
+          <li
+            class="list-group-item"
+            v-for="(text, index) in paginated('paginatedTexts')"
+            :key="index"
+          >
             <a :href="text.id" @click.prevent="findSimilar(text.id)">{{ text.name }}</a>
           </li>
-        </ul>
+        </paginate>
+        <div class="row">
+          <div class="col-4"></div>
+          <div class="col-4">
+            <paginate-links
+              for="paginatedTexts"
+              :async="true"
+              :show-step-links="true"
+              :step-links="{ next: 'Next', prev: 'Previous' }"
+              :classes="{ 'ul': 'pagination', 'li': 'page-item', 'a': 'page-link'}"
+              :hide-single-page="true"
+            ></paginate-links>
+          </div>
+          <div class="col-4"></div>
+        </div>
       </div>
     </div>
     <div class="col-8">
@@ -48,7 +71,8 @@ export default {
       text_content: "",
       text_title: "",
       progress: 0,
-      texts: []
+      texts: [],
+      paginate: ["paginatedTexts"]
     };
   },
   computed: {
