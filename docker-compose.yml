@@ -12,7 +12,7 @@ services:
       - "5000:5000"
     environment:
       WAIT_HOSTS: db:3306
-    # command: sh -c "python ./manage.py db upgrade && python ./manage.py db migrate"
+      # command: sh -c "python ./manage.py db upgrade && python ./manage.py db migrate"
     depends_on:
       - db
   frontend:

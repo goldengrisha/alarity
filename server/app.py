@@ -18,7 +18,8 @@ CORS(app, resources={r'/*': {'origins': '*'}})
 
 with app.app_context():
     import routes
-    db.create_all()  # Create database tables for our data models
+    # Create database tables for our data models
+    db.create_all()
 
 
 if __name__ == '__main__':
